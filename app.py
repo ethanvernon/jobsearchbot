@@ -19,46 +19,14 @@ sheet.clear()
 
 # makes class
 class IndeedBot:
-    # init with self, username, and password
+    # init
     def __init__(self):
-        # self.username = username
-        # self.password = password
-        # bot as webdriver
         opts = ChromeOptions()
 
         opts.add_experimental_option("detach", True)
-        # self.bot = webdriver.Chrome(chrome_options=opts)
         self.bot = webdriver.Chrome("./chromedriver/chromedriver.exe")
 
-    # self.bot = webdriver.Chrome('../../../Downloads/chromedriver')
-
-    # goes to page, inputs username password, hits enter, waits 60s in case user needs to beat captcha
-    # def login(self):
-    #     bot = self.bot
-    #     # goes to url
-    #     bot.get(
-    #         "https://secure.indeed.com/account/login?service=my&hl=en_US&co=US&continue=https%3A%2F%2Fwww.indeed.com%2F"
-    #     )
-    #     print("inputting email and password")
-    #     # finds email input by id and saves as var
-    #     email = bot.find_element_by_id("login-email-input")
-    #     password = bot.find_element_by_id("login-password-input")
-    #     # clears forms
-    #     email.clear()
-    #     password.clear()
-    #     # types in username/passwords in inputs
-    #     email.send_keys(self.username)
-    #     password.send_keys(self.password)
-    #     # hits Return
-    #     password.send_keys(Keys.RETURN)
-    #     # waits in case captcha
-    #     print("waiting 60s for possible captcha")
-    #     time.sleep(1)
-    #     print("10s before search")
-    #     time.sleep(10)
-    #     print("starting search")
-
-    # executes search, copies all 50 urls to global variable links
+    # executes search, copies up to 50 urls to global variable links
     def findJobs(self):
         bot = self.bot
         jobs = list()
@@ -74,23 +42,12 @@ class IndeedBot:
             "https://www.indeed.com/jobs?as_and=web+developer+javascript&as_phr=&as_any=&as_not=&as_ttl=junior&as_cmp=&jt=all&st=&as_src=&salary=&radius=25&l=United+States&fromage=3&limit=50&sort=date&psf=advsrch&from=advancedsearch"
         )
         time.sleep(10)
-        jobs = bot.find_elements_by_class_name("jobtitle")
-        links = [elem.get_attribute("href") for elem in jobs]
-        # run for multiple pages
-        # for x in range(3):
-        # 	bot.get('https://www.indeed.com/jobs?q=web+developer+title%3Ajunior&limit=50&fromage=1&radius=25&start='+str(50*x))
-        # 	time.sleep(3)
-        # 	jobs = bot.find_elements_by_class_name('jobtitle')
-        # 	links += [elem.get_attribute('href') for elem in jobs]
-        # 	print(links)
 
-    # store all links in first column of google sheets
-    # def storeJobs(self):
-    #     bot = self.bot
-    #     global links
-    #     global sheet
-    #     for idx, link in enumerate(links):
-    #         sheet.update_cell(idx + 1, 1, link)
+        # finds all titles
+        jobs = bot.find_elements_by_class_name("jobtitle")
+
+        # saves href values from all titles
+        links = [elem.get_attribute("href") for elem in jobs]
 
     # find the jobs that can be applied to directly from indeed
     def sortByApplyType(self):
@@ -98,91 +55,62 @@ class IndeedBot:
         global links
         global sheet
         count = 0
+
+        # enumerates over links
         for idx, link in enumerate(links):
+            # goes to link
             bot.get(link)
             time.sleep(5)
-            # get and save url, job title, company, location, description
+
+            # adds link to first column of sheet
             sheet.update_cell(idx + 1, 1, link)
+
+            # gets values from job ad
             jobName = bot.find_element_by_class_name(
                 "jobsearch-JobInfoHeader-title"
             ).text
+
             jobCompany = bot.find_element_by_css_selector(
                 ".jobsearch-InlineCompanyRating > div:first-of-type"
             ).text
+
             jobLocation = bot.find_element_by_css_selector(
                 ".jobsearch-InlineCompanyRating > div:last-of-type"
             ).text
+
+            # saves values to clumns in sheets
             sheet.update_cell(idx + 1, 3, jobName)
             sheet.update_cell(idx + 1, 4, jobCompany)
             sheet.update_cell(idx + 1, 5, jobLocation)
-            # jobMatch=0
-            # jobDescription=bot.find_element_by_class_name("jobsearch-jobDescriptionText")
+
             try:  # try quick apply button
                 print("clicking apply button")
+                # clicks on button
                 bot.execute_script(
                     'document.querySelector(".jobsearch-IndeedApplyButton-contentWrapper").click();'
                 )
-                # applyOnLinkedInLinks.append(link)
                 print("saved to list")
+
+                # updates sheet for job as instant-apply
                 sheet.update_cell(idx + 1, 2, "insta-apply")
                 time.sleep(1)
+
                 # open new blank tab
                 count += 1
                 bot.execute_script("window.open();")
+
                 # switch to the new window which is second in window_handles array
                 bot.switch_to_window(bot.window_handles[count])
             except:
+                # if click event fails, adds no to instant-apply column in sheet
                 print("no button")
                 sheet.update_cell(idx + 1, 2, "no")
-        # print(applyOnLinkedInLinks)
-
-    # def openJobs(self):
-    #     bot = self.bot
-    #     global links
-    #     for link in links:
-    #         print("going to job")
-    #         bot.get(link)
-    #         try:
-    #             # wait page to load
-    #             time.sleep(2)
-    #             print("clicking apply button")
-    #             # bot.find_element_by_class_name('jobsearch-IndeedApplyButton-contentWrapper').click()
-    #             bot.execute_script(
-    #                 'document.querySelector(".jobsearch-IndeedApplyButton-contentWrapper").click();'
-    #             )
-    #             # wait ad to load
-    #             time.sleep(3)
-    #             print("searching for iframes")
-    #             iframes = bot.find_elements_by_tag_name("iframe")
-    #             print(iframes)
-    #             # wait iframe to load (needed?)
-    #             time.sleep(1)
-    #             print("switching to 2nd frame")
-    #             iframesTwo = bot.find_elements_by_tag_name("iframe")
-    #             bot.switch_to.frame(1)
-    #             print(iframesTwo)
-    #             print("switching to 1st frame of 2nd frame")
-    #             bot.switch_to.frame(0)
-    #             # wait iframe to load (needed?)
-    #             time.sleep(1)
-    #             print("clicking continue button")
-    #             bot.find_element_by_class_name("ia-FormActionButtons-continue").click()
-    #             # bot.execute_script('document.querySelector(".ia-FormActionButtons-continue").click();')
-    #             # wait for second page of application to load
-    #             time.sleep(5)
-    #             print("clicking submit button")
-    #             # bot.find_element_by_class_name('jobsearch-IndeedApplyButton-contentWrapper').click()
-    #             # bot.execute_script('document.querySelector("#form-action-submit").click();')
-    #             bot.find_element_by_id("form-action-submit").click()
-    #             # wait for the submit to go through
-    #             time.sleep(5)
-    #         except Exception as ex:
-    #             print(ex)
-    #             time.sleep(3)
 
 
 ethan = IndeedBot()
 
-# ethan.login()
+# gets urls from search results
 ethan.findJobs()
+
+# goes through each url and saves info to row in sheets
 ethan.sortByApplyType()
