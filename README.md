@@ -42,3 +42,4 @@
 ## customizing
 11. Change the urls used in bot.get('') on line 42
 12. Capture additional data from job ad by modifying lines 59-107
+13. Save results outside of google sheets e.g. a .txt file or e-mail
