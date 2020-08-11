@@ -35,13 +35,13 @@
 8. Replace sheet name with your sheet name on line 17: ```sheet = client.open("sheetName").sheet1```
 
 ## run
-8. run with ```python app.py```
+9. run with ```python app.py```
 
 ## review
-9. wait for bot to finish
-10. check the google sheet for results
+10. wait for bot to finish
+11. check the google sheet for results
 
 ## customizing
-11. Change the urls used in bot.get('') on line 42
-12. Capture additional data from job ad by modifying lines 59-107
-13. Save results outside of google sheets e.g. a .txt file or e-mail
+12. Change the urls used in bot.get('') on line 42
+13. Capture additional data from job ad by modifying lines 59-107
+14. Save results outside of google sheets e.g. a .txt file or e-mail
