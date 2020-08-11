@@ -32,6 +32,8 @@
 7. Follow 12 min Youtube tutorial for how to populate and install: https://www.youtube.com/watch?v=cnPlKLEGR7E
    * text version: https://techwithtim.net/tutorials/google-sheets-python-api-tutorial/
 
+8. Replace sheet name with your sheet name on line 17: ```sheet = client.open("sheetName").sheet1```
+
 ## run
 8. run with ```python app.py```
 
