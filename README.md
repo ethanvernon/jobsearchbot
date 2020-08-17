@@ -4,7 +4,7 @@
 1. clone repo
 
 ## install dependencies
-2. pip install gspread oath2client (also part of step 8)
+2. ```pip install gspread oath2client``` (also part of step 8)
 
 ## chromedriver
 3. mkdir chromedriver in root directory
@@ -15,7 +15,7 @@
 6. ```pip install gspread oauth2client```
 
 ## connect to google sheets
-7. create a creds.json in root directory
+7. create a ```creds.json``` in root directory
 
 ```
 {
@@ -45,6 +45,6 @@
 12. check the google sheet for results
 
 ## customizing
-13. Change the urls used in bot.get('') on line 42
+13. Change the urls used in ```bot.get('')``` on line 42
 14. Capture additional data from job ad by modifying lines 59-107
 15. Save results outside of google sheets e.g. a .txt file or e-mail
