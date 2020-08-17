@@ -4,7 +4,7 @@
 1. clone repo
 
 ## install dependencies
-2. ```pip install gspread oath2client``` (also part of step 8)
+2. ```pip install gspread oauth2client``` (also part of step 8)
 
 ## chromedriver
 3. mkdir chromedriver in root directory
