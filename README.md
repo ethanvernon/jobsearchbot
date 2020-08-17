@@ -3,6 +3,9 @@
 ## start
 1. clone repo
 
+## install dependencies
+1a. pip install gspread oath2client (also part of step 7)
+
 ## chromedriver
 2. mkdir chromedriver in root directory
 3. download selenium driver for your version of chrome: https://chromedriver.chromium.org/downloads
