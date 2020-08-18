@@ -3,6 +3,14 @@
   * How to build a twitter bot: https://www.youtube.com/watch?v=7ovFudqFB0Q&t
   * How to use Google Sheets with Python: https://www.youtube.com/watch?v=cnPlKLEGR7E
 
+# requirements
+1. python
+2. pip
+3. chromedriver
+4. selenium
+5. gspread
+6. oauth2client
+
 # how to run
 
 ## start
