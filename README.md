@@ -1,3 +1,8 @@
+# pro tips
+1. Stand on the shoulder's of giants - this bot was created largely with beginner knowledge of HTML + Python after watching 2 tutorials:
+  a. How to build a tiwtter bot: https://www.youtube.com/watch?v=7ovFudqFB0Q&t
+  b. How to use Google Sheets with Python: https://www.youtube.com/watch?v=cnPlKLEGR7E
+
 # how to run
 
 ## start
