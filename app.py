@@ -24,7 +24,8 @@ class IndeedBot:
         opts = ChromeOptions()
 
         opts.add_experimental_option("detach", True)
-        self.bot = webdriver.Chrome("./chromedriver/chromedriver.exe")
+        # self.bot = webdriver.Chrome("./chromedriver/chromedriver.exe")
+        self.bot = webdriver.Chrome()
 
     # executes search, copies up to 50 urls to global variable links
     def findJobs(self):
@@ -34,13 +35,17 @@ class IndeedBot:
         links = list()
         # run once
 
+        # url = "https://www.indeed.com/jobs?as_and=web+developer+javascript&as_phr=&as_any=&as_not=&as_ttl=junior&as_cmp=&jt=all&st=&as_src=&salary=&radius=25&l=United+States&fromage=3&limit=50&sort=date&psf=advsrch&from=advancedsearch"
+
+        # url = "https://www.indeed.com/jobs?as_and=web+developer+javascript&as_phr=&as_any=&as_not=&as_ttl=associate&as_cmp=&jt=all&st=&as_src=&salary=&radius=25&l=United+States&fromage=3&limit=50&sort=date&psf=advsrch&from=advancedsearch"
+
+        url = "https://www.indeed.com/jobs?as_and=software+engineer&as_phr=&as_any=&as_not=&as_ttl=junior&as_cmp=&jt=all&st=&as_src=&salary=&radius=25&l=United+States&fromage=3&limit=50&sort=date&psf=advsrch&from=advancedsearch"
+
         # https://www.indeed.com/jobs?as_and=web+developer+remote&as_phr=&as_any=&as_not=&as_ttl=&as_cmp=&jt=all&st=&as_src=&salary=&radius=25&l=&fromage=1&limit=50&sort=&psf=advsrch&from=advancedsearch
         # https://www.indeed.com/jobs?as_and=web+developer+title%3Aremote&jt=all&fromage=1&limit=50&psf=advsrch&from=advancedsearch
         # https://www.indeed.com/jobs?q=web+developer+title%3Ajunior&limit=50&fromage=1&radius=25&start=0&l=Chicago%2C+IL
         # https://www.indeed.com/jobs?as_and=web+developer+javascript&as_phr=&as_any=&as_not=&as_ttl=junior&as_cmp=&jt=all&st=&as_src=&salary=&radius=25&l=United+States&fromage=3&limit=50&sort=date&psf=advsrch&from=advancedsearch
-        bot.get(
-            "https://www.indeed.com/jobs?as_and=web+developer+javascript&as_phr=&as_any=&as_not=&as_ttl=junior&as_cmp=&jt=all&st=&as_src=&salary=&radius=25&l=United+States&fromage=3&limit=50&sort=date&psf=advsrch&from=advancedsearch"
-        )
+        bot.get(url)
         time.sleep(10)
 
         # finds all titles
