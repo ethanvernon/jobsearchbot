@@ -1,9 +1,11 @@
-# pro tips
+# Job Search Bot
+
+## Pro Tips
 1. Stand on the shoulders of giants - this bot was created largely with beginner knowledge of HTML + Python after watching 2 tutorials:
   * How to build a twitter bot: https://www.youtube.com/watch?v=7ovFudqFB0Q&t
   * How to use Google Sheets with Python: https://www.youtube.com/watch?v=cnPlKLEGR7E
 
-# requirements
+## Requirements
 1. python
 2. pip
 3. chromedriver
@@ -11,12 +13,14 @@
 5. gspread
 6. oauth2client
 
-# how to run
+## How to run:
 
-## start
-1. clone repo
+1. clone repository
+```
+ git clone https://github.com/shubhayu-64/jobsearchbot.git
+```
 
-## chromedriver
+## Chromedriver
 2. mkdir chromedriver in root directory
 3. download selenium driver for your version of chrome: https://chromedriver.chromium.org/downloads
 4. copy chromedriver.exe to chromedriver folder
@@ -47,14 +51,14 @@
 
 8. Replace sheet name with your sheet name on line 17: ```sheet = client.open("sheetName").sheet1```
 
-## run
+## Run
 9. run with ```python app.py```
 
-## review
+## Review
 10. wait for bot to finish
 11. check the google sheet for results
 
-## customizing
+## Customizing
 12. Change the urls used in ```bot.get('')``` on line 42
 13. Capture additional data from job ad by modifying lines 59-107
 14. Save results outside of google sheets e.g. a .txt file or e-mail
